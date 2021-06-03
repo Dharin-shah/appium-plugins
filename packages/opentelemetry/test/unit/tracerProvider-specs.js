@@ -1,11 +1,9 @@
-/* eslint-disable no-unused-vars */
-
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import { tracerProviderInstance } from '../../lib/tracing/tracerProvider';
 
 chai.use(chaiAsPromised);
-const should = chai.should();
+const should = chai.should(); // eslint-disable-line no-unused-vars
 const expect = chai.expect;
 
 describe('TracerProvider', function () {
@@ -19,7 +17,7 @@ describe('TracerProvider', function () {
   it('should return current config', function () {
     const expectedConfig = {
       active: true,
-      exporterConfig: [{ exporterType: 'console'}]
+      exporterConfigs: [{ exporterType: 'console'}]
     };
     expect(tracerProviderInstance.currentConfig).to.deep.equal(expectedConfig);
   });
@@ -31,7 +29,7 @@ describe('TracerProvider', function () {
     tracerProviderInstance.registerExporter(exporterConfig);
     const expectedConfig = {
       active: true,
-      exporterConfig: [
+      exporterConfigs: [
         { exporterType: 'console'},
         { exporterType: 'zipkin', config: {} }
       ]
@@ -41,7 +39,7 @@ describe('TracerProvider', function () {
   it('should disable tracer', async function () {
     const expectedConfig = {
       active: false,
-      exporterConfig: []
+      exporterConfigs: []
     };
     await tracerProviderInstance.shutdown();
     expect(tracerProviderInstance.currentConfig).to.deep.equal(expectedConfig);
@@ -55,7 +53,7 @@ describe('TracerProvider', function () {
     await tracerProviderInstance.disableExporter(exporterConfig.exporterType);
     const expectedConfig = {
       active: true,
-      exporterConfig: [{ exporterType: 'console'}]
+      exporterConfigs: [{ exporterType: 'console'}]
     };
     expect(tracerProviderInstance.currentConfig).to.deep.equal(expectedConfig);
   });

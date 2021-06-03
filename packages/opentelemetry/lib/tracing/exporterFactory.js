@@ -1,9 +1,7 @@
-/* eslint-disable no-unused-vars */
-
-import { JaegerExporter, ExporterConfig } from '@opentelemetry/exporter-jaeger';
+import { JaegerExporter, ExporterConfig } from '@opentelemetry/exporter-jaeger'; // eslint-disable-line no-unused-vars
 import { ZipkinExporter } from '@opentelemetry/exporter-zipkin';
 import { PrometheusExporter } from '@opentelemetry/exporter-prometheus';
-import { ConsoleSpanExporter, SpanExporter } from '@opentelemetry/tracing';
+import { ConsoleSpanExporter, SpanExporter } from '@opentelemetry/tracing'; // eslint-disable-line no-unused-vars
 
 const DEFAULT_SERVICE_NAME = 'appium';
 

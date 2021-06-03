@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import { buildExporter, AVAILABLE_EXPORTERS } from '../../lib/tracing/exporterFactory';
@@ -10,7 +8,7 @@ import { PrometheusExporter } from '@opentelemetry/exporter-prometheus';
 import { tracerProviderInstance } from '../../lib/tracing/tracerProvider';
 
 chai.use(chaiAsPromised);
-const should = chai.should();
+const should = chai.should(); // eslint-disable-line no-unused-vars
 const expect = chai.expect;
 
 describe('ExporterFactory', function () {

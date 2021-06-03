@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 import { ServerInstrumentation } from '../../lib/tracing/serverInstrumenation';
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';

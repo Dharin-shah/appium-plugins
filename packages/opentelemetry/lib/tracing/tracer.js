@@ -1,8 +1,5 @@
-/* eslint-disable no-unused-vars */
-
-import TraceAPI, {SpanStatusCode, SpanOptions, setSpan } from '@opentelemetry/api';
-
-import { Span } from '@opentelemetry/tracing';
+import TraceAPI, {SpanStatusCode, SpanOptions, setSpan } from '@opentelemetry/api'; // eslint-disable-line no-unused-vars
+import { Span } from '@opentelemetry/tracing'; // eslint-disable-line no-unused-vars
 
 class Tracer {
 

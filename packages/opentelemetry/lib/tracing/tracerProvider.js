@@ -1,13 +1,11 @@
-/* eslint-disable no-unused-vars */
-
 import { getBatchSpanProcessor } from './spanProcessorFactory';
 import { buildExporter, AVAILABLE_EXPORTERS } from './exporterFactory';
 import { NodeTracerProvider } from '@opentelemetry/node';
-import { registerInstrumentations, InstrumentationOption } from '@opentelemetry/instrumentation';
+import { registerInstrumentations, InstrumentationOption } from '@opentelemetry/instrumentation'; // eslint-disable-line no-unused-vars
 import { ServerInstrumentation } from './serverInstrumenation';
 import { diag, DiagConsoleLogger, DiagLogLevel } from '@opentelemetry/api';
-import { SpanProcessor, SpanExporter } from '@opentelemetry/tracing';
-import { ExporterConfig } from '@opentelemetry/exporter-jaeger';
+import { SpanProcessor, SpanExporter } from '@opentelemetry/tracing'; // eslint-disable-line no-unused-vars
+import { ExporterConfig } from '@opentelemetry/exporter-jaeger'; // eslint-disable-line no-unused-vars
 import _ from 'lodash';
 import { forEachPromise } from '../utils';
 
@@ -18,7 +16,7 @@ class TracerProvider {
     this.exporterInstances = {};
     this._currentConfig = {
       active: true,
-      exporterConfig: []
+      exporterConfigs: []
     };
     this.init();
   }
@@ -44,23 +42,23 @@ class TracerProvider {
 
 
   /**
-   * @typedef {Object} exporterConfig
+   * @typedef {Object} Exporter
    * @property {string} exporterType - exporterType of the exporter
    * @property {ExporterConfig} config - config for that specific exporterType
    */
   /**
    * adds exporterInstance and exporterConfig to currentConfig
    * @param {SpanExporter} exporterInstance SpanExporter instance object
-   * @param {exporterConfig} exporterConfig exporter object with exporterType and config
+   * @param {Exporter} exporterConfig exporter object with exporterType and config
    */
   addExporter (exporterInstance, exporterConfig) {
     this.exporterInstances[exporterConfig.exporterType] = exporterInstance;
-    this._currentConfig.exporterConfig.push(exporterConfig);
+    this._currentConfig.exporterConfigs.push(exporterConfig);
   }
 
   /**
    * generates a span processor for exporter object containing a type and config
-   * @param {exporterConfig} exporterConfig exporter object with exporterType and config
+   * @param {Exporter} exporterConfig exporter object with exporterType and config
    */
   registerExporter (exporterConfig) {
     const exporterInstance = buildExporter(exporterConfig.exporterType, exporterConfig.config);
@@ -100,7 +98,7 @@ class TracerProvider {
         delete this.exporterInstances[exporterType];
       }
     }
-    this._currentConfig.exporterConfig = this._currentConfig.exporterConfig.filter((item) => item.exporterType !== exporterType);
+    this._currentConfig.exporterConfigs = this._currentConfig.exporterConfigs.filter((item) => item.exporterType !== exporterType);
   }
 
   /**

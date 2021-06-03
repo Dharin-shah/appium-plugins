@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 import OpentelemetryPlugin from '../../index';
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';

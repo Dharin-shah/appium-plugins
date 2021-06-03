@@ -8,7 +8,7 @@ import { ConsoleSpanExporter, SimpleSpanProcessor, BatchSpanProcessor } from '@o
 
 
 chai.use(chaiAsPromised);
-const should = chai.should();
+const should = chai.should(); // eslint-disable-line no-unused-vars
 
 
 describe('SpanProcessorFactory', function () {

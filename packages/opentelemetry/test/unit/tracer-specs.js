@@ -1,11 +1,9 @@
-/* eslint-disable no-unused-vars */
-
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import sinon from 'sinon';
 
 chai.use(chaiAsPromised);
-const should = chai.should();
+const should = chai.should(); // eslint-disable-line no-unused-vars
 
 import { Tracer } from '../../lib/tracing/tracer';
 import { tracerProviderInstance } from '../../lib/tracing/tracerProvider';

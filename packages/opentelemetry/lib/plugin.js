@@ -21,26 +21,35 @@ export default class OpentelemetryPlugin extends BasePlugin {
   }
 
   static handleGetOpentelemetryConfig (req, res) {
-    return res.send(JSON.stringify(tracerProviderInstance.getCurrentConfig()));
+    return res.send(JSON.stringify(tracerProviderInstance.currentConfig));
   }
 
   static handleSetOpentelemetryConfig (req, res) {
     const opentelemetryBlob = req.body;
     const exporterConfig = opentelemetryBlob.exporter;
     if (!exporterConfig) {
-      const response = JSON.stringify({ status: STATUS_MESSAGE.FAILURE, message: STATUS_MESSAGE.INVALID_EXPORTER_ERROR });
+      const response = JSON.stringify({
+        status: STATUS_MESSAGE.FAILURE, message: STATUS_MESSAGE.INVALID_EXPORTER_ERROR
+      });
       return res.send(response);
     }
     try {
       tracerProviderInstance.registerExporter(exporterConfig);
-      res.send(JSON.stringify({ status: STATUS_MESSAGE.SUCCESS }));
+      res.send(JSON.stringify({
+        status: STATUS_MESSAGE.SUCCESS
+      }));
     } catch (error) {
-      res.send(JSON.stringify({ status: STATUS_MESSAGE.FAILURE, message: error.message }));
+      res.send(JSON.stringify({
+        status: STATUS_MESSAGE.FAILURE,
+        message: error.message
+      }));
     }
   }
 
   static handleGetStatus (req, res) {
-    const message = tracerProviderInstance.isAlive() ? STATUS_MESSAGE.ACTIVE : STATUS_MESSAGE.INACTIVE;
-    res.send(JSON.stringify({ status: message }));
+    const status = tracerProviderInstance.isAlive() ? STATUS_MESSAGE.ACTIVE : STATUS_MESSAGE.INACTIVE;
+    res.send(JSON.stringify({
+      status
+    }));
   }
 }

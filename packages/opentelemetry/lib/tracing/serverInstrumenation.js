@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
-
-import { HttpInstrumentation } from '@opentelemetry/instrumentation-http';
+import { HttpInstrumentation, HttpInstrumentationConfig } from '@opentelemetry/instrumentation-http'; // eslint-disable-line no-unused-vars
 import { ExpressInstrumentation } from '@opentelemetry/instrumentation-express';
-import { InstrumentationBase } from '@opentelemetry/instrumentation';
+import { InstrumentationBase } from '@opentelemetry/instrumentation'; // eslint-disable-line no-unused-vars
 import _ from 'lodash';
 
 class ServerInstrumentation {
@@ -16,7 +14,10 @@ class ServerInstrumentation {
     };
   }
 
-  updateCurrentConfig () {
+  /**
+   * refresh the current httpInstrumentation with _httpCurrentConfig
+   */
+  refreshHttpInstrumentation () {
     this._httpInstrumentation.setConfig(this._httpCurrentConfig);
   }
 
@@ -28,10 +29,18 @@ class ServerInstrumentation {
     return [this._httpInstrumentation, this._expressInstrumentation];
   }
 
+  /**
+   * get the current http config
+   * @return {HttpInstrumentationConfig}
+   */
   get httpCurrentConfig () {
     return _.cloneDeep(this._httpCurrentConfig);
   }
 
+  /**
+   * set the current http config
+   * @param {HttpInstrumentationConfig} config
+   */
   set httpCurrentConfig (config) {
     this._httpCurrentConfig = config;
   }
@@ -42,7 +51,7 @@ class ServerInstrumentation {
    */
   addIncomingIgnoreMatchers (path) {
     this._httpCurrentConfig.ignoreIncomingPaths.push(path);
-    this.updateCurrentConfig();
+    this.refreshHttpInstrumentation();
   }
 
   /**
@@ -51,7 +60,7 @@ class ServerInstrumentation {
    */
   addOutgoingUrlIgnoreMatchers (url) {
     this._httpCurrentConfig.ignoreOutgoingUrls.push(url);
-    this.updateCurrentConfig();
+    this.refreshHttpInstrumentation();
   }
 
   /**
@@ -60,7 +69,7 @@ class ServerInstrumentation {
    */
   updateServerName (name) {
     this._httpCurrentConfig.serverName = name;
-    this.updateCurrentConfig();
+    this.refreshHttpInstrumentation();
   }
 
   /**
@@ -69,7 +78,7 @@ class ServerInstrumentation {
    */
   addRequestHook (hook) {
     this._httpCurrentConfig.requestHook = hook;
-    this.updateCurrentConfig();
+    this.refreshHttpInstrumentation();
   }
 
 
@@ -79,7 +88,7 @@ class ServerInstrumentation {
    */
   addResponseHook (hook) {
     this._httpCurrentConfig.responseHook = hook;
-    this.updateCurrentConfig();
+    this.refreshHttpInstrumentation();
   }
 }
 
