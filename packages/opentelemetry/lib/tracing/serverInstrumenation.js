@@ -2,6 +2,7 @@ import { HttpInstrumentation, HttpInstrumentationConfig } from '@opentelemetry/i
 import { ExpressInstrumentation } from '@opentelemetry/instrumentation-express';
 import { InstrumentationBase } from '@opentelemetry/instrumentation'; // eslint-disable-line no-unused-vars
 import _ from 'lodash';
+import { ClientRequest, ServerResponse } from 'http'; // eslint-disable-line no-unused-vars
 
 class ServerInstrumentation {
   constructor () {
@@ -73,8 +74,15 @@ class ServerInstrumentation {
   }
 
   /**
+   * Http Request Hook
+   *
+   * @callback HttpRequestHook
+   * @param {Span} span - HTTP request Span object.
+   * @param {ClientRequest} request - HTTP request object
+   */
+  /**
    * Optionally add a request hook to intercept any requests and update the attributes
-   * @param {Function} hook
+   * @param {HttpRequestHook} hook
    */
   addRequestHook (hook) {
     this._httpCurrentConfig.requestHook = hook;
@@ -83,8 +91,15 @@ class ServerInstrumentation {
 
 
   /**
+   * Http Response Hook
+   *
+   * @callback HttpResponseHook
+   * @param {Span} span - HTTP response Span object.
+   * @param {ServerResponse} request - HTTP response object
+   */
+  /**
    * Optionally add a response hook to intercept any requests and update the attributes
-   * @param { Function } hook
+   * @param {HttpResponseHook} hook
    */
   addResponseHook (hook) {
     this._httpCurrentConfig.responseHook = hook;
